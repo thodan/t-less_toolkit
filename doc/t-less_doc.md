@@ -1,7 +1,6 @@
 ## T-LESS dataset (v2) documentation
 
-Author: Tomas Hodan (hodantom@cmp.felk.cvut.cz)
-Center for Machine Perception, Czech Technical University in Prague
+Author: Tomas Hodan (hodantom@cmp.felk.cvut.cz), Center for Machine Perception, Czech Technical University in Prague
 
 
 ### Directory structure
