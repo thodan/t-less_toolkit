@@ -45,7 +45,7 @@ The 3D object models are provided in two variants:
 The models are provided with vertex normals that were calculated using the
 MeshLab implementation (http://meshlab.sourceforge.net/) of the following method:
 G. Thurrner and C. A. Wuthrich, Computing vertex normals from polygonal facets,
-Journal of Graphics Tools 3.1 (1998)
+Journal of Graphics Tools 3.1 (1998).
 
 
 ### Training images
