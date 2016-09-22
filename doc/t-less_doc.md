@@ -40,10 +40,10 @@ The 3D object models are provided in two variants:
 * **cad** - Manually created CAD models (no color)
 * **reconst** - Models (with color) automatically reconstructed from the training
             RGB-D images (from Primesense) using fastfusion:
-            github.com/tum-vision/fastfusion
+            http://github.com/tum-vision/fastfusion/
 
 The models are provided with vertex normals that were calculated using the
-MeshLab implementation (meshlab.sourceforge.net) of the following method:
+MeshLab implementation (http://meshlab.sourceforge.net/) of the following method:
 G. Thurrner and C. A. Wuthrich, Computing vertex normals from polygonal facets,
 Journal of Graphics Tools 3.1 (1998)
 
