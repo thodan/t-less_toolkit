@@ -5,7 +5,7 @@ Author: Tomas Hodan (hodantom@cmp.felk.cvut.cz), Center for Machine Perception, 
 
 ### Directory structure
 
-The T-LESS dataset is organized as follows (when downloaded using script t-less_download.py):
+The T-LESS dataset is organized as follows (when downloaded using t-less_download.py):
 
 * **models_{cad,reconst}** - 3D object models
 * **train_{primesense,kinect,canon}** - Training images
