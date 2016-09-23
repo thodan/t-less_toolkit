@@ -596,7 +596,7 @@ def down_unzip(url, dest, zip_download_dir):
     step_current += 1
     down_path = os.path.join(zip_download_dir, os.path.basename(url))
 
-    print("Downloading {}/{}: {}".format(step_current, step_total, dest))
+    print("Downloading {}/{}: {}".format(step_current, step_total, url))
     name_file = download(url, out=down_path)
     print("")
 
