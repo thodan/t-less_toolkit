@@ -559,7 +559,7 @@ def parse():
                     "- downloads and unpacks all models and all images from the Primesense sensor.")
     parser.add_argument("--destination", default=".",
                         help="destination folder inside which a new folder for the dataset is created"
-                             "(default is the current folder)")
+                             " (default is the current folder)")
     parser.add_argument("--train", nargs="*", type=int, choices=train_ids,
                         metavar="obj_id", help="IDs of objects (all are downloaded if no ID is specified)")
     parser.add_argument("--test", nargs="*", type=int, choices=test_ids,
