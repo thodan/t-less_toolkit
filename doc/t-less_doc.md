@@ -53,7 +53,7 @@ Journal of Graphics Tools 3.1 (1998).
 The training images depict an object from a uniformly sampled full view sphere
 -- 10 deg step in elevation (from 85 deg to -85 deg) and 5 deg in azimuth.
 There are 1296 templates per object from each sensor (there are only 648 templates
-for objects 19 and 20, because they look the same from the upper and the lower view
+for objects 19 and 20 because they look the same from the upper and the lower view
 hemisphere).
 
 The training images of each object are accompanied with file obj_info.yml, that
