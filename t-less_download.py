@@ -647,8 +647,8 @@ def main():
         down_scene_ids, down_model_types))
     print("Note: If you have already downloaded some of these dataset parts to "
           "the same destination folder, they will be downloaded again and overwritten.\n")
-    #inp = input if PY3K else raw_input
-    #inp("Press ENTER to continue.")
+    inp = input if PY3K else raw_input
+    inp("Press ENTER to continue.")
     print("")
 
     root = "t-less_v{:d}".format(version)
