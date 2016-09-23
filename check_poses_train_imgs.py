@@ -72,6 +72,7 @@ for obj_id in obj_ids:
                                   surf_color=surf_color, mode='rgb')
 
         vis_rgb = 0.5 * rgb.astype(np.float) + 0.5 * ren_rgb.astype(np.float)
+        vis_rgb = vis_rgb.astype(np.uint8)
 
         # Draw the bounding box of the object
         vis_rgb = misc.draw_rect(vis_rgb, im_info['obj_bb'])

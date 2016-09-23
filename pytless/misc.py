@@ -30,4 +30,4 @@ def draw_rect(im, rect, color=(255, 255, 255)):
     draw.rectangle((rect[0], rect[1], rect[0] + rect[2], rect[1] + rect[3]),
                    outline=color, fill=None)
     del draw
-    return np.asarray(vis_pil)
+    return np.array(vis_pil)
