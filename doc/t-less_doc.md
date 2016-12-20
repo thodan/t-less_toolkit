@@ -124,8 +124,8 @@ https://github.com/thodan/t-less_toolkit/tree/master/cam
 Note that for the Canon camera, there are two sets of parameters, each for
 different zoom level:
 
-* **Zoom level 3** - Used to capture training images and to capture test images
-           from scene 14 for elevation <= 45 degrees.
+* **Zoom level 3** - Used to capture all training images and to capture test
+           images from scene 14 for elevation <= 45 degrees.
 * **Zoom level 1** - Used to capture the rest of test images.
 
 
