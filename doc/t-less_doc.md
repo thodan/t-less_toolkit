@@ -115,7 +115,18 @@ in the model coordinate system to a 3D point x_c in the camera coordinate
 system: x_c = P * x_m.
 
 
-### Training images
+### Camera parameters
+
+The intrinsic camera parameters differ for each image (see above).
+Parameters for the original images (before cropping) can be found here:
+https://github.com/thodan/t-less_toolkit/tree/master/cam
+
+Note that for the Canon camera, there are two sets of parameters, each for
+different zoom level:
+
+* **Zoom level 3** - Used to capture training images and to capture test images
+           from scene 14 for elevation <= 45 degrees.
+* **Zoom level 1** - Used to capture the rest of test images.
 
 
 ### Units
