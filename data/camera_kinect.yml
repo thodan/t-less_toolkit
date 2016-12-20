@@ -1,0 +1,10 @@
+# T-LESS
+# Camera: Microsoft Kinect v2
+
+width: 1920
+height: 1080
+
+fx: 1076.74064739
+fy: 1075.17825536
+cx: 971.982649675
+cy: 541.591818362
