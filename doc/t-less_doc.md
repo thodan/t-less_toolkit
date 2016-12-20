@@ -115,6 +115,9 @@ in the model coordinate system to a 3D point x_c in the camera coordinate
 system: x_c = P * x_m.
 
 
+### Training images
+
+
 ### Units
 
 * Depth images: 0.1 mm
