@@ -3,7 +3,7 @@
 
 # Intrinsic camera parameters
 # IMPORTANT NOTE: The parameters differ for each image (due to cropping) and
-# should be loaded from the info.yml included for each training/test image set.
+# should be loaded from the info.yml provided for each training/test image set.
 width: 3264
 height: 2448
 fx: 3630.26229559
