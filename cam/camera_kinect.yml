@@ -5,8 +5,8 @@
 depth_scale: 0.1
 
 # Intrinsic camera parameters
-# IMPORTANT NOTE: For some datasets, the parameters may be different for each
-# image - see the description of the dataset format for more info.
+# IMPORTANT NOTE: The parameters differ for each image (due to cropping) and
+# should be loaded from the info.yml included for each training/test image set.
 width: 1920
 height: 1080
 fx: 1076.74064739
