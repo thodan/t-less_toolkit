@@ -1,9 +1,11 @@
 # T-LESS
 # Camera: Canon IXUS 950 IS, zoom level = 1
 
+# Intrinsic camera parameters
+# IMPORTANT NOTE: For some datasets, the parameters may be different for each
+# image - see the description of the dataset format for more info.
 width: 3264
 height: 2448
-
 fx: 3630.26229559
 fy: 3627.6973661
 cx: 1663.14577835

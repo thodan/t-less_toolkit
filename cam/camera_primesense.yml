@@ -1,9 +1,14 @@
 # T-LESS
 # Camera: Primesense CARMINE 1.09
 
+# Depth scaling - multiply the depth images with this factor to get depth in mm.
+depth_scale: 0.1
+
+# Intrinsic camera parameters
+# IMPORTANT NOTE: For some datasets, the parameters may be different for each
+# image - see the description of the dataset format for more info.
 width: 1280
 height: 1024
-
 fx: 1075.65091572
 fy: 1073.90347929
 cx: 641.068883438
