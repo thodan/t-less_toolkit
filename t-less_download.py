@@ -546,7 +546,6 @@ version = 2
 url_root = "http://ptak.felk.cvut.cz/darwin/t-less/v" + str(version)
 train_ids = list(range(1, 31))
 test_ids = list(range(1, 21))
-data_types = ["obj", "scene"]
 t_types = ["train", "test"]
 sensor_types = ["primesense", "kinect", "canon"]
 model_types = ["cad", "reconst"]
@@ -625,6 +624,7 @@ def callback_progress_zip(size_current, size_total, bar_function=bar_adaptive):
         sys.stdout.write("\r" + progress)
 
 def main():
+    global step_total
     path_dest_home, ids_lists, sensors, models = parse()
     step_total = len(sensors) * len(ids_lists) * sum((len(i) for i in ids_lists)) + len(models)
 
@@ -661,7 +661,7 @@ def main():
         for id_data_type, ids in enumerate(ids_lists):
             parent = "{}_{}".format(t_types[id_data_type], sensor)
             for id in ids:
-                name = "{}_{:02d}".format(data_types[id_data_type], id)
+                name = "{:02d}".format(id)
                 path = os.path.join(path_dest_home, root, parent)
                 url = "{}/{}.zip".format(url_root, "_".join([root, parent, name]))
                 down_unzip(url, path, zip_download_dir)
