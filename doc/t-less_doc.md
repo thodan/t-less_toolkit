@@ -9,18 +9,18 @@ Czech Technical University in Prague
 The T-LESS dataset is organized as follows (when downloaded using
 t-less_download.py):
 
-* **models_{cad,reconst}** - 3D object models
-* **train_{primesense,kinect,canon}** - Training images
-* **test_{primesense,kinect,canon}** - Test images
+* **models_{cad,reconst}** - 3D object models.
+* **train_{primesense,kinect,canon}/YY** - Training images of object YY.
+* **test_{primesense,kinect,canon}/ZZ** - Test images of scene ZZ.
 
 
 ### Sensors
 
 The training and test images were captured with three sensors:
 
-* **primesense** - Primesense CARMINE 1.09
-* **kinect** - Microsoft Kinect v2
-* **canon** - Canon IXUS 950 IS
+* **primesense** - Primesense CARMINE 1.09.
+* **kinect** - Microsoft Kinect v2.
+* **canon** - Canon IXUS 950 IS.
 
 The sensors were synchronized, i.e. the following images were captured at the
 same time from almost the same viewpoint:
