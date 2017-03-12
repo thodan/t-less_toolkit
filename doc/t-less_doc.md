@@ -59,7 +59,7 @@ The test images depict a scene from a systematically sampled view hemisphere
 with 10 deg step in elevation (from 75 deg to 15 deg) and 5 deg in azimuth.
 There are 504 images per scene from each sensor.
 
-Each image set is accompanied with file info.yml that contains for each image
+An image set is accompanied with file info.yml that contains for each image
 the following information:
 
 * **cam_K** - 3x3 intrinsic camera matrix K (saved row-wise).
