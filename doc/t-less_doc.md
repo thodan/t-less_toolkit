@@ -59,8 +59,8 @@ The test images depict a scene from a systematically sampled view hemisphere
 with 10 deg step in elevation (from 75 deg to 15 deg) and 5 deg in azimuth.
 There are 504 images per scene from each sensor.
 
-The training images are accompanied with file info.yml, that contains for each
-image the following information:
+Each image set is accompanied with file info.yml that contains for each image
+the following information:
 
 * **cam_K** - 3x3 intrinsic camera matrix K (saved row-wise).
 * **cam_R_w2c** - 3x3 rotation matrix R_w2c (saved row-wise).
