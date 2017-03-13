@@ -32,21 +32,6 @@ same time from almost the same viewpoint:
 * {train,test}\_canon/YY/rgb/XXXX.jpg
 
 
-### 3D object models
-
-The 3D object models are provided in two variants:
-
-* **cad** - Manually created CAD models (no color).
-* **reconst** - Models (with color) automatically reconstructed from the
-            training RGB-D images (from Primesense) using fastfusion:
-            http://github.com/tum-vision/fastfusion/
-
-The models are provided with vertex normals that were calculated using the
-MeshLab implementation (http://meshlab.sourceforge.net/) of the following
-method: G. Thurrner and C. A. Wuthrich, Computing vertex normals from polygonal
-facets, Journal of Graphics Tools 3.1 (1998).
-
-
 ### Training and test images
 
 The training images depict an object from a systematically sampled full view
@@ -62,18 +47,18 @@ There are 504 images per scene from each sensor.
 Each set of training and test images is accompanied with file info.yml that
 contains for each image the following information:
 
-* **cam\_K** - 3x3 intrinsic camera matrix K, saved row-wise.
-* **cam\_R\_w2c** - 3x3 rotation matrix R\_w2c, saved row-wise.
+* **cam\_K** - 3x3 intrinsic camera matrix K (saved row-wise).
+* **cam\_R\_w2c** - 3x3 rotation matrix R\_w2c (saved row-wise).
 * **cam\_t\_w2c** - 3x1 translation vector t\_w2c.
 * **elev** - Approximate elevation at which the image was captured.
 * **mode** - Capturing mode (for training images: 0 = the object was standing
     upright, 1 = the object was standing upside down, for test images:
     always 0).
 
-The matrix K is different for each image -- the principal point is not constant
-because the provided images were obtained by cropping the region around the
-origin of the world coordinate system (i.e. the center of the turntable)
-in the captured images.
+The matrix K is different for each image - the principal point is not constant
+because the provided images were obtained by cropping a region around the origin
+of the world coordinate system (i.e. the center of the turntable) in the
+captured images.
 
 P\_w2c = K * [R\_w2c, t\_w2c] is the camera matrix which transforms 3D point
 x\_w in the world coordinate system to 3D point x\_c in the camera coordinate
@@ -85,7 +70,7 @@ The ground truth object poses are provided in files gt.yml that contain for each
 object in each image the following information:
 
 * **obj\_id** - Object ID.
-* **cam\_R\_m2c** - 3x3 rotation matrix R\_m2c, saved row-wise.
+* **cam\_R\_m2c** - 3x3 rotation matrix R\_m2c (saved row-wise).
 * **cam\_t\_m2c** - 3x1 translation vector t\_m2c.
 * **obj\_bb** - 2D bounding box of projection of the 3D CAD model at the ground
     truth pose. It is given by (x, y, width, height), where (x, y) is the
@@ -96,12 +81,40 @@ x\_m in the model coordinate system to 3D point x\_c in the camera coordinate
 system: x\_c = P * x\_m.
 
 
+### 3D object models
+
+The 3D object models are provided in two variants:
+
+* **cad** - Manually created CAD models (no color).
+* **reconst** - Models (with color) automatically reconstructed from the
+            training RGB-D images (from Primesense) using fastfusion:
+            http://github.com/tum-vision/fastfusion/
+
+The models are provided with vertex normals that were calculated using the
+MeshLab implementation (http://meshlab.sourceforge.net/) of the following
+method: G. Thurrner and C. A. Wuthrich, Computing vertex normals from polygonal
+facets, Journal of Graphics Tools 3.1 (1998).
+
+
+## Coordinate systems
+
+All coordinate systems (model, camera, world) are right-handed.
+
+The center of the 3D bounding box of an object model is aligned to the origin
+of the model coordinate system. The Z coordinate is pointing upwards (when the
+object is seen standing "naturally up-right").
+
+The camera coordinate system is as in OpenCV:
+http://docs.opencv.org/2.4/modules/calib3d/doc/camera_calibration_and_3d_reconstruction.html
+
+
 ### Camera parameters
 
 The intrinsic camera parameters differ for each image (see above).
 
 Parameters for the original images (before cropping) can be found here:
-https://github.com/thodan/t-less_toolkit/tree/master/cam
+https://github.com/thodan/t-less_toolkit/tree/master/cam, and can be used for
+simulation of the used sensor when rendering the training images.
 
 Note that for the Canon camera there are two sets of parameters, each for
 different zoom level:
