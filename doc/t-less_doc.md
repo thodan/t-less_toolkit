@@ -7,11 +7,11 @@ Czech Technical University in Prague
 ### Directory structure
 
 The T-LESS dataset is organized as follows (when downloaded using
-t-less_download.py):
+t-less\_download.py):
 
-* **models_{cad,reconst}** - 3D object models.
-* **train_{primesense,kinect,canon}/YY** - Training images of object YY.
-* **test_{primesense,kinect,canon}/ZZ** - Test images of scene ZZ.
+* **models\_{cad,reconst}** - 3D object models.
+* **train\_{primesense,kinect,canon}/YY** - Training images of object YY.
+* **test\_{primesense,kinect,canon}/ZZ** - Test images of scene ZZ.
 
 
 ### Sensors
@@ -25,11 +25,11 @@ The training and test images were captured with three sensors:
 The sensors were synchronized, i.e. the following images were captured at the
 same time from almost the same viewpoint:
 
-* {train,test}_primesense/YY/rgb/XXXX.png
-* {train,test}_primesense/YY/depth/XXXX.png
-* {train,test}_kinect/YY/rgb/XXXX.png
-* {train,test}_kinect/YY/depth/XXXX.png
-* {train,test}_canon/YY/rgb/XXXX.jpg
+* {train,test}\_primesense/YY/rgb/XXXX.png
+* {train,test}\_primesense/YY/depth/XXXX.png
+* {train,test}\_kinect/YY/rgb/XXXX.png
+* {train,test}\_kinect/YY/depth/XXXX.png
+* {train,test}\_canon/YY/rgb/XXXX.jpg
 
 
 ### 3D object models
@@ -59,40 +59,41 @@ The test images depict a scene from a systematically sampled view hemisphere
 with 10 deg step in elevation (from 75 deg to 15 deg) and 5 deg in azimuth.
 There are 504 images per scene from each sensor.
 
-An image set is accompanied with file info.yml that contains for each image
-the following information:
+Each set of training and test images is accompanied with file info.yml that
+contains for each image the following information:
 
-* **cam_K** - 3x3 intrinsic camera matrix K (saved row-wise).
-* **cam_R_w2c** - 3x3 rotation matrix R_w2c (saved row-wise).
-* **cam_t_w2c** - 3x1 translation vector t_w2c.
+* **cam\_K** - 3x3 intrinsic camera matrix K, saved row-wise.
+* **cam\_R\_w2c** - 3x3 rotation matrix R\_w2c, saved row-wise.
+* **cam\_t\_w2c** - 3x1 translation vector t\_w2c.
 * **elev** - Approximate elevation at which the image was captured.
 * **mode** - Capturing mode (for training images: 0 = the object was standing
     upright, 1 = the object was standing upside down, for test images:
     always 0).
 
-The matrix K is different for each image because the provided images were
-obtained by cropping of the captured images (i.e. the principal point is not
-constant).
+The matrix K is different for each image -- the principal point is not constant
+because the provided images were obtained by cropping the region around the
+origin of the world coordinate system (i.e. the center of the turntable)
+in the captured images.
 
-P_w2c = K * [R_w2c, t_w2c] is the camera matrix which transforms a 3D point x_w
-in the world coordinate system to a 3D point x_c in the camera coordinate
-system: x_c = P * x_w. The world coordinate system is defined by the fiducial
-markers (some of them are visible in the test images). R_w2c are t_w2c are
+P\_w2c = K * [R\_w2c, t\_w2c] is the camera matrix which transforms 3D point
+x\_w in the world coordinate system to 3D point x\_c in the camera coordinate
+system: x\_c = P * x\_w. The world coordinate system is defined by the fiducial
+markers (some of them are visible in the test images). R\_w2c and t\_w2c are
 provided only for the test images.
 
-The ground truth poses of the modeled objects are provided in files gt.yml
-that contain for each object in each image the following information:
+The ground truth object poses are provided in files gt.yml that contain for each
+object in each image the following information:
 
-* **obj_id** - Object ID.
-* **cam_R_m2c** - 3x3 rotation matrix R_m2c (saved row-wise).
-* **cam_t_m2c** - 3x1 translation vector t_m2c.
-* **obj_bb** - 2D bounding box of projection of the 3D CAD model at the ground
-    truth pose. It is given by [x, y, width, height], where [x, y] is the
+* **obj\_id** - Object ID.
+* **cam\_R\_m2c** - 3x3 rotation matrix R\_m2c, saved row-wise.
+* **cam\_t\_m2c** - 3x1 translation vector t\_m2c.
+* **obj\_bb** - 2D bounding box of projection of the 3D CAD model at the ground
+    truth pose. It is given by (x, y, width, height), where (x, y) is the
     top-left corner of the bounding box. 
 
-P_m2c = K * [R_m2c, t_m2c] is the camera matrix which transforms a 3D point x_m
-in the model coordinate system to a 3D point x_c in the camera coordinate
-system: x_c = P * x_m.
+P\_m2c = K * [R\_m2c, t\_m2c] is the camera matrix which transforms 3D point
+x\_m in the model coordinate system to 3D point x\_c in the camera coordinate
+system: x\_c = P * x\_m.
 
 
 ### Camera parameters
