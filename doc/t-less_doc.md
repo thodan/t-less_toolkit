@@ -61,10 +61,10 @@ of the world coordinate system (i.e. the center of the turntable) in the
 captured images.
 
 P\_w2i = K * [R\_w2c, t\_w2c] is the camera matrix which transforms 3D point
-p\_w = [x, y, z]' in the world coordinate system to 2D point p\_i = [u, v, 1]'
-in the image coordinate system: s * p\_i = P\_w2i * p\_w. The world coordinate
-system is defined by the fiducial markers (some of them are visible in the test
-images). R\_w2c and t\_w2c are provided only for the test images.
+p\_w = [x, y, z, 1]' in the world coordinate system to 2D point p\_i =
+[u, v, 1]' in the image coordinate system: s * p\_i = P\_w2i * p\_w. The world
+coordinate system is defined by the fiducial markers (some of them are visible
+in the test images). R\_w2c and t\_w2c are provided only for the test images.
 
 The ground truth object poses are provided in files gt.yml that contain for each
 object in each image the following information:
@@ -77,8 +77,8 @@ object in each image the following information:
     top-left corner of the bounding box. 
 
 P\_m2i = K * [R\_m2c, t\_m2c] is the camera matrix which transforms 3D point
-p\_m = [x, y, z]' in the model coordinate system to 2D point p\_i = [u, v, 1]'
-in the image coordinate system: s * p\_i = P\_m2i * p\_m.
+p\_m = [x, y, z, 1]' in the model coordinate system to 2D point p\_i =
+[u, v, 1]' in the image coordinate system: s * p\_i = P\_m2i * p\_m.
 
 
 ### 3D object models
