@@ -5,8 +5,10 @@
 depth_scale: 0.1
 
 # Intrinsic camera parameters
-# IMPORTANT NOTE: The parameters differ for each image (due to cropping) and
-# should be loaded from the info.yml provided for each training/test image set.
+# IMPORTANT: The parameters differ for each training/test image (due to
+# cropping) and should be loaded from file info.yml that is provided for each
+# training/test image set. The parameters below are meant for simulation of the
+# sensor when rendering the training images.
 width: 1280
 height: 1024
 fx: 1075.65091572

@@ -123,6 +123,9 @@ different zoom level:
     images from scene 14 for elevation <= 45 degrees.
 * **Zoom level 1** - Used to capture the rest of test images.
 
+The provided color and aligned depth images are already processed to remove
+radial distortion.
+
 
 ### Units
 
