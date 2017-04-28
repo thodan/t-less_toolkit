@@ -48,8 +48,9 @@ Each set of training and test images is accompanied with file info.yml that
 contains for each image the following information:
 
 * **cam\_K** - 3x3 intrinsic camera matrix K (saved row-wise).
-* **cam\_R\_w2c** - 3x3 rotation matrix R\_w2c (saved row-wise).
-* **cam\_t\_w2c** - 3x1 translation vector t\_w2c.
+* **cam\_R\_w2c** - 3x3 rotation matrix R\_w2c (saved row-wise). Provided only
+                    for test images.
+* **cam\_t\_w2c** - 3x1 translation vector t\_w2c. Provided only for test images.
 * **elev** - Approximate elevation at which the image was captured.
 * **mode** - Capturing mode (for training images: 0 = the object was standing
     upright, 1 = the object was standing upside down, for test images:
@@ -64,7 +65,7 @@ P\_w2i = K * [R\_w2c, t\_w2c] is the camera matrix which transforms 3D point
 p\_w = [x, y, z, 1]' in the world coordinate system to 2D point p\_i =
 [u, v, 1]' in the image coordinate system: s * p\_i = P\_w2i * p\_w. The world
 coordinate system is defined by the fiducial markers (some of them are visible
-in the test images). R\_w2c and t\_w2c are provided only for the test images.
+in the test images).
 
 The ground truth object poses are provided in files gt.yml that contain for each
 object in each image the following information:
