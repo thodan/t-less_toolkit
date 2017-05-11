@@ -559,13 +559,13 @@ def parse():
     parser.add_argument("--destination", default=".",
                         help="destination folder inside which a new folder for the dataset is created"
                              " (default is the current folder)")
-    parser.add_argument("--train", nargs="*", type=int, choices=train_ids,
+    parser.add_argument("--train", nargs="*", type=int, choices=train_ids, default=train_ids,
                         metavar="obj_id", help="IDs of objects (all are downloaded if no ID is specified)")
-    parser.add_argument("--test", nargs="*", type=int, choices=test_ids,
+    parser.add_argument("--test", nargs="*", type=int, choices=test_ids, default=test_ids,
                         metavar="scene_id", help="IDs of scenes (all are downloaded if no ID is specified)")
     parser.add_argument("--sensors", nargs="+", default=sensor_types, choices=sensor_types,
                         help="sensors (images from all sensors are downloaded if none is specified)")
-    parser.add_argument("--models", nargs="*", choices=model_types,
+    parser.add_argument("--models", nargs="*", choices=model_types,default=model_types,
                         help="variants of 3D object models (all variants are downloaded if none is specified)")
     args = parser.parse_args()
 
