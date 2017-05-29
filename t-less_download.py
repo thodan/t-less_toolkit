@@ -548,7 +548,7 @@ train_ids = list(range(1, 31))
 test_ids = list(range(1, 21))
 t_types = ["train", "test"]
 sensor_types = ["primesense", "kinect", "canon"]
-model_types = ["cad", "reconst"]
+model_types = ["cad", "cad_subdivided", "reconst"]
 
 def parse():
     parser = argparse.ArgumentParser(
