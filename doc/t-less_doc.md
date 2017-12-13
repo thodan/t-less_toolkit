@@ -52,6 +52,8 @@ contains for each image the following information:
                     for test images.
 * **cam\_t\_w2c** - 3x1 translation vector t\_w2c. Provided only for test images.
 * **elev** - Approximate elevation at which the image was captured.
+* **depth_scale** - Multiply the depth images with this factor to get
+    depth in mm.
 * **mode** - Capturing mode (for training images: 0 = the object was standing
     upright, 1 = the object was standing upside down, for test images:
     always 0).
