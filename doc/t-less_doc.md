@@ -50,10 +50,11 @@ contains for each image the following information:
 * **cam\_K** - 3x3 intrinsic camera matrix K (saved row-wise).
 * **cam\_R\_w2c** - 3x3 rotation matrix R\_w2c (saved row-wise). Provided only
                     for test images.
-* **cam\_t\_w2c** - 3x1 translation vector t\_w2c. Provided only for test images.
-* **elev** - Approximate elevation at which the image was captured.
+* **cam\_t\_w2c** - 3x1 translation vector t\_w2c. Provided only for test
+    images.
 * **depth_scale** - Multiply the depth images with this factor to get
     depth in mm.
+* **elev** - Approximate elevation at which the image was captured.
 * **mode** - Capturing mode (for training images: 0 = the object was standing
     upright, 1 = the object was standing upside down, for test images:
     always 0).
