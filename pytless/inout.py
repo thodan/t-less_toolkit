@@ -3,52 +3,59 @@
 
 import numpy as np
 import struct
-import yaml
+# import yaml
+import ruamel.yaml as yaml
 
-def load_obj_info(path):
-    """
-    Loads info about training images from a YAML file.
-
-    :param path: A path to a YAML file.
-    :return: The loaded info.
-    """
+def load_info(path):
     with open(path, 'r') as f:
         info = yaml.load(f, Loader=yaml.CLoader)
         for eid in info.keys():
-            info[eid]['cam_K'] = np.array(info[eid]['cam_K']).reshape((3, 3))
-            info[eid]['cam_R_m2c'] = np.array(info[eid]['cam_R_m2c']).reshape((3, 3))
-            info[eid]['cam_t_m2c'] = np.array(info[eid]['cam_t_m2c']).reshape((3, 1))
+            if 'cam_K' in info[eid].keys():
+                info[eid]['cam_K'] = np.array(info[eid]['cam_K']).reshape(
+                    (3, 3))
+            if 'cam_R_w2c' in info[eid].keys():
+                info[eid]['cam_R_w2c'] = np.array(
+                    info[eid]['cam_R_w2c']).reshape((3, 3))
+            if 'cam_t_w2c' in info[eid].keys():
+                info[eid]['cam_t_w2c'] = np.array(
+                    info[eid]['cam_t_w2c']).reshape((3, 1))
     return info
 
-def load_scene_info(path):
-    """
-    Loads info about test images from a YAML file.
+def save_info(path, info):
+    for im_id in sorted(info.keys()):
+        im_info = info[im_id]
+        if 'cam_K' in im_info.keys():
+            im_info['cam_K'] = im_info['cam_K'].flatten().tolist()
+        if 'cam_R_w2c' in im_info.keys():
+            im_info['cam_R_w2c'] = im_info['cam_R_w2c'].flatten().tolist()
+        if 'cam_t_w2c' in im_info.keys():
+            im_info['cam_t_w2c'] = im_info['cam_t_w2c'].flatten().tolist()
+    with open(path, 'w') as f:
+        yaml.dump(info, f, Dumper=yaml.CDumper, width=10000)
 
-    :param path: A path to a YAML file.
-    :return: The loaded info.
-    """
-    with open(path, 'r') as f:
-        info = yaml.load(f, Loader=yaml.CLoader)
-        for eid in info.keys():
-            info[eid]['cam_K'] = np.array(info[eid]['cam_K']).reshape((3, 3))
-            info[eid]['cam_R_w2c'] = np.array(info[eid]['cam_R_w2c']).reshape((3, 3))
-            info[eid]['cam_t_w2c'] = np.array(info[eid]['cam_t_w2c']).reshape((3, 1))
-    return info
-
-def load_scene_gt(path):
-    """
-    Loads the ground truth poses from a YAML file.
-
-    :param path: A path to a YAML file.
-    :return: The loaded ground truth poses.
-    """
+def load_gt(path):
     with open(path, 'r') as f:
         gts = yaml.load(f, Loader=yaml.CLoader)
         for im_id, gts_im in gts.items():
             for gt in gts_im:
-                gt['cam_R_m2c'] = np.array(gt['cam_R_m2c']).reshape((3, 3))
-                gt['cam_t_m2c'] = np.array(gt['cam_t_m2c']).reshape((3, 1))
+                if 'cam_R_m2c' in gt.keys():
+                    gt['cam_R_m2c'] = np.array(gt['cam_R_m2c']).reshape((3, 3))
+                if 'cam_t_m2c' in gt.keys():
+                    gt['cam_t_m2c'] = np.array(gt['cam_t_m2c']).reshape((3, 1))
     return gts
+
+def save_gt(path, gts):
+    for im_id in sorted(gts.keys()):
+        im_gts = gts[im_id]
+        for gt in im_gts:
+            if 'cam_R_m2c' in gt.keys():
+                gt['cam_R_m2c'] = gt['cam_R_m2c'].flatten().tolist()
+            if 'cam_t_m2c' in gt.keys():
+                gt['cam_t_m2c'] = gt['cam_t_m2c'].flatten().tolist()
+            if 'obj_bb' in gt.keys():
+                gt['obj_bb'] = [int(x) for x in gt['obj_bb']]
+    with open(path, 'w') as f:
+        yaml.dump(gts, f, Dumper=yaml.CDumper, width=10000)
 
 def load_colors(path):
     """

@@ -17,21 +17,21 @@ model_type = 'cad' # options: 'cad', 'reconst'
 im_step = 100 # Consider every im_step-th image
 
 # Path to the T-LESS dataset
-data_path = '/media/tom/T-LESS/t-less/data_release/t-less_v2'
+data_path = '/local/datasets/sixd/t-less/t-less_v2'
 
 # Path to the folder in which the images produced by this script will be saved
 output_dir = os.path.join(data_path, 'output_check_poses_test_imgs')
 
 # Paths to the elements of the T-LESS dataset
 model_path_mask = os.path.join(data_path, 'models_' + model_type, 'obj_{:02d}.ply')
-scene_info_path_mask = os.path.join(data_path, 'test_{}', 'scene_{:02d}', 'scene_info.yml')
-scene_gt_path_mask = os.path.join(data_path, 'test_{}', 'scene_{:02d}', 'scene_gt.yml')
-rgb_path_mask = os.path.join(data_path, 'test_{}', 'scene_{:02d}', 'rgb', '{:04d}.{}')
-depth_path_mask = os.path.join(data_path, 'test_{}', 'scene_{:02d}', 'depth', '{:04d}.png')
+scene_info_path_mask = os.path.join(data_path, 'test_{}', '{:02d}', 'info.yml')
+scene_gt_path_mask = os.path.join(data_path, 'test_{}', '{:02d}', 'gt.yml')
+rgb_path_mask = os.path.join(data_path, 'test_{}', '{:02d}', 'rgb', '{:04d}.{}')
+depth_path_mask = os.path.join(data_path, 'test_{}', '{:02d}', 'depth', '{:04d}.png')
 rgb_ext = {'primesense': 'png', 'kinect': 'png', 'canon': 'jpg'}
 obj_colors_path = os.path.join('data', 'obj_rgb.txt')
-vis_rgb_path_mask = os.path.join(output_dir, 'scene_{:02d}_{}_{}_{:04d}_rgb.png')
-vis_depth_path_mask = os.path.join(output_dir, 'scene_{:02d}_{}_{}_{:04d}_depth_diff.png')
+vis_rgb_path_mask = os.path.join(output_dir, '{:02d}_{}_{}_{:04d}_rgb.png')
+vis_depth_path_mask = os.path.join(output_dir, '{:02d}_{}_{}_{:04d}_depth_diff.png')
 
 misc.ensure_dir(output_dir)
 obj_colors = inout.load_colors(obj_colors_path)
@@ -42,14 +42,14 @@ for scene_id in scene_ids:
 
     # Load info about the test images (including camera parameters etc.)
     scene_info_path = scene_info_path_mask.format(device, scene_id)
-    scene_info = inout.load_scene_info(scene_info_path)
+    scene_info = inout.load_info(scene_info_path)
 
     scene_gt_path = scene_gt_path_mask.format(device, scene_id)
-    gts = inout.load_scene_gt(scene_gt_path)
+    scene_gt = inout.load_gt(scene_gt_path)
 
     # Load models of objects present in the scene
     scene_obj_ids = set()
-    for gt in gts[0]:
+    for gt in scene_gt[0]:
         scene_obj_ids.add(gt['obj_id'])
     models = {}
     for scene_obj_id in scene_obj_ids:
@@ -72,7 +72,7 @@ for scene_id in scene_ids:
 
         im_size = (rgb.shape[1], rgb.shape[0])
         vis_rgb = np.zeros(rgb.shape, np.float)
-        for gt in gts[im_id]:
+        for gt in scene_gt[im_id]:
             model = models[gt['obj_id']]
             R = gt['cam_R_m2c']
             t = gt['cam_t_m2c']
@@ -103,7 +103,7 @@ for scene_id in scene_ids:
             # Render the objects at the ground truth poses
             im_size = (depth.shape[1], depth.shape[0])
             ren_depth = np.zeros(depth.shape, np.float)
-            for gt in gts[im_id]:
+            for gt in scene_gt[im_id]:
                 model = models[gt['obj_id']]
                 R = gt['cam_R_m2c']
                 t = gt['cam_t_m2c']

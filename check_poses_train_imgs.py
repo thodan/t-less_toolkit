@@ -17,20 +17,21 @@ model_type = 'cad' # options: 'cad', 'reconst'
 im_step = 100 # Consider every im_step-th image
 
 # Path to the T-LESS dataset
-data_path = '/media/tom/T-LESS/t-less/data_release/t-less_v2'
+data_path = '/local/datasets/sixd/t-less/t-less_v2'
 
 # Path to the folder in which the images produced by this script will be saved
 output_dir = os.path.join(data_path, 'output_check_poses_train_imgs')
 
 # Paths to the elements of the T-LESS dataset
 model_path_mask = os.path.join(data_path, 'models_' + model_type, 'obj_{:02d}.ply')
-obj_info_path_mask = os.path.join(data_path, 'train_{}', 'obj_{:02d}', 'obj_info.yml')
-rgb_path_mask = os.path.join(data_path, 'train_{}', 'obj_{:02d}', 'rgb', '{:04d}.{}')
-depth_path_mask = os.path.join(data_path, 'train_{}', 'obj_{:02d}', 'depth', '{:04d}.png')
+obj_info_path_mask = os.path.join(data_path, 'train_{}', '{:02d}', 'info.yml')
+obj_gt_path_mask = os.path.join(data_path, 'train_{}', '{:02d}', 'gt.yml')
+rgb_path_mask = os.path.join(data_path, 'train_{}', '{:02d}', 'rgb', '{:04d}.{}')
+depth_path_mask = os.path.join(data_path, 'train_{}', '{:02d}', 'depth', '{:04d}.png')
 rgb_ext = {'primesense': 'png', 'kinect': 'png', 'canon': 'jpg'}
 obj_colors_path = os.path.join('data', 'obj_rgb.txt')
-vis_rgb_path_mask = os.path.join(output_dir, 'obj_{:02d}_{}_{}_{:04d}_rgb.png')
-vis_depth_path_mask = os.path.join(output_dir, 'obj_{:02d}_{}_{}_{:04d}_depth_diff.png')
+vis_rgb_path_mask = os.path.join(output_dir, '{:02d}_{}_{}_{:04d}_rgb.png')
+vis_depth_path_mask = os.path.join(output_dir, '{:02d}_{}_{}_{:04d}_depth_diff.png')
 
 misc.ensure_dir(output_dir)
 obj_colors = inout.load_colors(obj_colors_path)
@@ -45,17 +46,23 @@ for obj_id in obj_ids:
 
     # Load info about the templates (including camera parameters etc.)
     obj_info_path = obj_info_path_mask.format(device, obj_id)
-    obj_info = inout.load_obj_info(obj_info_path)
+    obj_info = inout.load_info(obj_info_path)
 
-    for im_id, im_info in obj_info.items():
+    obj_gt_path = obj_gt_path_mask.format(device, obj_id)
+    obj_gt = inout.load_gt(obj_gt_path)
+
+    for im_id in obj_info.keys():
         if im_id % im_step != 0:
             continue
         print('obj: ' + str(obj_id) + ', device: ' + device + ', im_id: ' + str(im_id))
 
+        im_info = obj_info[im_id]
+        im_gt = obj_gt[im_id]
+
         # Get intrinsic camera parameters and object pose
         K = im_info['cam_K']
-        R = im_info['cam_R_m2c']
-        t = im_info['cam_t_m2c']
+        R = im_gt[0]['cam_R_m2c']
+        t = im_gt[0]['cam_t_m2c']
 
         # Visualization #1
         #-----------------------------------------------------------------------
@@ -75,7 +82,7 @@ for obj_id in obj_ids:
         vis_rgb = vis_rgb.astype(np.uint8)
 
         # Draw the bounding box of the object
-        vis_rgb = misc.draw_rect(vis_rgb, im_info['obj_bb'])
+        vis_rgb = misc.draw_rect(vis_rgb, im_gt[0]['obj_bb'])
 
         # Save the visualization
         vis_rgb[vis_rgb > 255] = 255
