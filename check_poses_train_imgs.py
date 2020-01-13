@@ -1,3 +1,4 @@
+#!/usr/local/bin/python3
 # Author: Tomas Hodan (hodantom@cmp.felk.cvut.cz)
 # Center for Machine Perception, Czech Technical University in Prague
 
@@ -10,14 +11,16 @@ import os
 import numpy as np
 import scipy.misc
 import matplotlib.pyplot as plt
+import imageio
 
-obj_ids = range(1, 31)
+obj_ids = [1] # Choose which scene_ids to render. Eg. range(1, 31)
 device = 'primesense' # options: 'primesense', 'kinect', 'canon'
 model_type = 'cad' # options: 'cad', 'reconst'
 im_step = 100 # Consider every im_step-th image
 
 # Path to the T-LESS dataset
-data_path = '/local/datasets/sixd/t-less/t-less_v2'
+# Which you can download using the t-less_download.py script. 
+data_path = '/Add/your/path/here/t-less_v2'
 
 # Path to the folder in which the images produced by this script will be saved
 output_dir = os.path.join(data_path, 'output_check_poses_train_imgs')
@@ -68,7 +71,7 @@ for obj_id in obj_ids:
         #-----------------------------------------------------------------------
         # Load RGB image
         rgb_path = rgb_path_mask.format(device, obj_id, im_id, rgb_ext[device])
-        rgb = scipy.misc.imread(rgb_path)
+        rgb = imageio.imread(rgb_path)
 
         # Render RGB image of the object model at the pose associated with
         # the training image into a
@@ -87,14 +90,14 @@ for obj_id in obj_ids:
         # Save the visualization
         vis_rgb[vis_rgb > 255] = 255
         vis_rgb_path = vis_rgb_path_mask.format(obj_id, device, model_type, im_id)
-        scipy.misc.imsave(vis_rgb_path, vis_rgb.astype(np.uint8))
+        imageio.imwrite(vis_rgb_path, vis_rgb.astype(np.uint8))
 
         # Visualization #2
         #-----------------------------------------------------------------------
         if device != 'canon':
             # Load depth image
             depth_path = depth_path_mask.format(device, obj_id, im_id, rgb_ext[device])
-            depth = scipy.misc.imread(depth_path)  # Unit: 0.1 mm
+            depth = imageio.imread(depth_path)  # Unit: 0.1 mm
             depth = depth.astype(np.float) * 0.1  # Convert to mm
 
             # Render depth image of the object model at the pose associated
