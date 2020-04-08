@@ -1,3 +1,4 @@
+#!/usr/local/bin/python3
 # Author: Tomas Hodan (hodantom@cmp.felk.cvut.cz)
 # Center for Machine Perception, Czech Technical University in Prague
 
@@ -10,14 +11,16 @@ import os
 import numpy as np
 import scipy.misc
 import matplotlib.pyplot as plt
+import imageio
 
-scene_ids = range(1, 21)
+scene_ids = [1] # Choose which scene_ids to render. Eg. range(1, 21)
 device = 'primesense' # options: 'primesense', 'kinect', 'canon'
 model_type = 'cad' # options: 'cad', 'reconst'
 im_step = 100 # Consider every im_step-th image
 
-# Path to the T-LESS dataset
-data_path = '/local/datasets/sixd/t-less/t-less_v2'
+# Path to the T-LESS dataset.
+# Which you can download using the t-less_download.py script. 
+data_path = '/Add/your/path/here/t-less_v2'
 
 # Path to the folder in which the images produced by this script will be saved
 output_dir = os.path.join(data_path, 'output_check_poses_test_imgs')
@@ -36,7 +39,7 @@ vis_depth_path_mask = os.path.join(output_dir, '{:02d}_{}_{}_{:04d}_depth_diff.p
 misc.ensure_dir(output_dir)
 obj_colors = inout.load_colors(obj_colors_path)
 
-plt.ioff() # Turn interactive plotting off
+# plt.ioff() # Turn interactive plotting off
 
 for scene_id in scene_ids:
 
@@ -68,7 +71,7 @@ for scene_id in scene_ids:
         #-----------------------------------------------------------------------
         # Load RGB image
         rgb_path = rgb_path_mask.format(device, scene_id, im_id, rgb_ext[device])
-        rgb = scipy.misc.imread(rgb_path)
+        rgb = imageio.imread(rgb_path)
 
         im_size = (rgb.shape[1], rgb.shape[0])
         vis_rgb = np.zeros(rgb.shape, np.float)
@@ -90,14 +93,14 @@ for scene_id in scene_ids:
         vis_rgb = 0.6 * vis_rgb + 0.4 * rgb
         vis_rgb[vis_rgb > 255] = 255
         vis_rgb_path = vis_rgb_path_mask.format(scene_id, device, model_type, im_id)
-        scipy.misc.imsave(vis_rgb_path, vis_rgb.astype(np.uint8))
+        imageio.imwrite(vis_rgb_path, vis_rgb.astype(np.uint8))
 
         # Visualization #2
         #-----------------------------------------------------------------------
         if device != 'canon':
             # Load depth image
             depth_path = depth_path_mask.format(device, scene_id, im_id, rgb_ext[device])
-            depth = scipy.misc.imread(depth_path)  # Unit: 0.1 mm
+            depth = imageio.imread(depth_path)  # Unit: 0.1 mm
             depth = depth.astype(np.float) * 0.1  # Convert to mm
 
             # Render the objects at the ground truth poses
